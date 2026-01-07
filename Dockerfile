@@ -4,12 +4,10 @@ USER root
 
 RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
-# Copy our custom configs
 COPY pjsip.conf /etc/asterisk/pjsip.conf
 COPY extensions.conf /etc/asterisk/extensions.conf
-COPY http.conf /etc/asterisk/http.conf
+COPY general.conf /etc/asterisk/general.conf
 
-# Generate self-signed SSL certificate
 RUN mkdir -p /etc/asterisk/keys && \
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/asterisk/keys/asterisk.key \
